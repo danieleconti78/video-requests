@@ -5,10 +5,8 @@
 .c{max-width:420px;padding:24px;text-align:center}.m{color:#8a9a9a;font-size:14px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;background:#7ad9d3;margin-right:8px;animation:p 1s infinite alternate}@keyframes p{to{opacity:.3}}</style></head>
 <body><div class="c"><h1 style="font-size:24px"><span class="dot"></span>Video requests</h1><p class="m" id="s">Connecting to the studio…</p></div>
 <script>
-(async()=>{const s=document.getElementById('s');const k=new URLSearchParams(location.search).get('k');
-if(!k){s.textContent='This link is incomplete. Ask NAM Studio for the full link.';return}
-try{const r=await fetch('url.json?t='+Date.now(),{cache:'no-store'});const d=await r.json();
- const ok=await fetch(d.url+'/submit?k='+encodeURIComponent(k),{method:'HEAD',mode:'no-cors'}).then(()=>true).catch(()=>false);
- if(!ok)throw 0; location.replace(d.url+'/submit?k='+encodeURIComponent(k));
+(async()=>{const s=document.getElementById('s');try{const r=await fetch('url.json?t='+Date.now(),{cache:'no-store'});const d=await r.json();
+ const ok=await fetch(d.url+'/submit',{method:'HEAD',mode:'no-cors'}).then(()=>true).catch(()=>false);
+ if(!ok)throw 0; location.replace(d.url+'/submit');
 }catch(e){s.textContent='The studio is offline right now. Try again in a few minutes.'}})();
 </script></body></html>
