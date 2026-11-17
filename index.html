@@ -7,6 +7,6 @@
 <script>
 (async()=>{const s=document.getElementById('s');try{const r=await fetch('url.json?t='+Date.now(),{cache:'no-store'});const d=await r.json();
  const ok=await fetch(d.url+'/submit',{method:'HEAD',mode:'no-cors'}).then(()=>true).catch(()=>false);
- if(!ok)throw 0; const m=location.hash.match(/admin=([\w-]+)/); location.replace(d.url+(m?'/?key='+m[1]:'/submit'));
+ if(!ok)throw 0; const m=location.hash.match(/admin=([\w-]+)/); let ak=''; try{ if(m) localStorage.setItem('ak',m[1]); if(/logout/.test(location.hash)) localStorage.removeItem('ak'); ak=localStorage.getItem('ak')||''; }catch(e){} location.replace(d.url+(ak?'/?key='+ak:'/submit'));
 }catch(e){s.textContent='The studio is offline right now. Try again in a few minutes.'}})();
 </script></body></html>
